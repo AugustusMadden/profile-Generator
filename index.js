@@ -1,6 +1,36 @@
 const fs = require("fs");
 const inquirer = require("inquirer");
 
+const Employee = require('./lib/Employee');
+const Engineer = require('./lib/Engineer');
+const Intern = require('./lib/Intern');
+const Manager = require('./lib/Manager');
+
+
+function getNewEmployee(choice) {
+    if (choice === 'Engineer') {
+        choice = 'engineer'
+        const engineer = new Engineer();
+        questionArray = [];
+        questionArray.push(engineer.getName(choice), engineer.getId(choice), engineer.getEmail(choice), engineer.getGithub())
+        inquirer
+            .prompt(questionArray)
+            .then((data) => {
+                engineer.name = data.name_input;
+                engineer.id = data.id;
+                engineer.email = data.email;
+                engineer.github = data.github;
+                employeeList.push(engineer);
+                getTeamMember();
+            })
+    }
+    else if (choice === 'Intern') {} }
+
+//Create function that contains if statements cycling thru above four categories, followed by inquire prompt/resolve. Send result to array
+//getTeamMember function
+//writeTo using fs
+//init
+
 /* GIVEN a command-line application that accepts user input
 WHEN I am prompted for my team members and their information
 THEN an HTML file is generated that displays a nicely formatted team roster based on user input
