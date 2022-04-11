@@ -6,25 +6,24 @@ const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const Manager = require('./lib/Manager');
 
+const teamList = []
 
-function getNewEmployee(choice) {
-    if (choice === 'Engineer') {
-        choice = 'engineer'
-        const engineer = new Engineer();
-        questionArray = [];
-        questionArray.push(engineer.getName(choice), engineer.getId(choice), engineer.getEmail(choice), engineer.getGithub())
-        inquirer
-            .prompt(questionArray)
-            .then((data) => {
-                engineer.name = data.name_input;
-                engineer.id = data.id;
-                engineer.email = data.email;
-                engineer.github = data.github;
-                employeeList.push(engineer);
-                getTeamMember();
-            })
-    }
-    else if (choice === 'Intern') {} }
+
+function getManager() {
+    const manager = new Manager();
+    inquireArray = [];
+    inquireArray.push(manager.getName(choice), manager.getId(choice), manager.getEmail(choice), manager.getOffice())
+    inquirer
+        .prompt(inquireArray)
+        .then((data) => {
+            manager.name = data.name;
+            manager.id = data.id;
+            manager.email = data.email;
+            manager.officeNumber = data.officeNumber;
+            teamList.push(manager);
+            getMember();
+        })
+}
 
 //Create function that contains if statements cycling thru above four categories, followed by inquire prompt/resolve. Send result to array
 //getTeamMember function
