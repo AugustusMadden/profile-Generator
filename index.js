@@ -1,5 +1,6 @@
 const fs = require("fs");
 const inquirer = require("inquirer");
+const { inherits } = require("util");
 
 const Employee = require('./lib/Employee');
 const Engineer = require('./lib/Engineer');
@@ -9,25 +10,92 @@ const Manager = require('./lib/Manager');
 const teamList = []
 
 
-function getManager() {
+function getManager(position) {
+    position = "Manager"
     const manager = new Manager();
+
     inquireArray = [];
-    inquireArray.push(manager.getName(choice), manager.getId(choice), manager.getEmail(choice), manager.getOffice())
+    inquireArray.push(manager.getName(), manager.getId(), manager.getEmail(), manager.getOffice())
+
     inquirer
         .prompt(inquireArray)
         .then((data) => {
-            manager.name = data.name;
+            manager.name = data.userName;
             manager.id = data.id;
             manager.email = data.email;
-            manager.officeNumber = data.officeNumber;
+            manager.office = data.office;
             teamList.push(manager);
             getMember();
         })
 }
 
+function getAdditional(position) {
+
+    if (position === "Engineer") {
+        position = "Engineer"
+        const engineer = new Engineer();
+
+        inquireArray = [];
+        inquireArray.push(engineer.getName(), engineer.getId(), engineer.getEmail(), engineer.getGitHub())
+        inquirer
+            .prompt(inquireArray)
+            .then((data) => {
+                engineer.name = data.userName;
+                engineer.id = data.id;
+                engineer.email = data.email;
+                engineer.git = data.git;
+                teamList.push(engineer);
+                getMember();
+            })
+    }
+
+    else if (position === "Intern") {
+        position = "Intern"
+        const intern = new Intern();
+
+        inquireArray = [];
+        inquireArray.push(intern.getName(), intern.getId(), intern.getEmail(), intern.getSchool())
+        inquirer
+            .prompt(inquireArray)
+            .then((data) => {
+                intern.name = data.userName;
+                intern.id = data.id;
+                intern.email = data.email;
+                intern.school = data.school;
+                teamList.push(intern);
+                getMember();
+            })
+    } 
+
+    else if (position === "No further team members to add.") {
+        const htmlString = htmlTemplate.generateHTML(teamList);
+        writeToFile(htmlString);
+        console.log(teamList);
+        return
+    }
+}
+
+function getMember() {
+    const memberQuestion = [
+        {
+        type: 'list',
+        message: 'Which additional team member do you wish to add?',
+        name: 'position',
+        choices: ['Engineer','Intern',"No further team members to add."]
+        }
+    ]
+    inquirer
+    .prompt(memberQuestion)
+    .then((data) => {
+        getAdditional(data.position)
+        console.log(data.position);
+    })
+}
+
+getManager();
 //Create function that contains if statements cycling thru above four categories, followed by inquire prompt/resolve. Send result to array
 //getTeamMember function
-//writeTo using fs
+//writeTo using fs (send to the dist folder)
 //init
 
 /* GIVEN a command-line application that accepts user input
