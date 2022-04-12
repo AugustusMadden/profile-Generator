@@ -1,11 +1,14 @@
 const fs = require("fs");
 const inquirer = require("inquirer");
-const { inherits } = require("util");
+const {
+    inherits
+} = require("util");
 
 const Employee = require('./lib/Employee');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const Manager = require('./lib/Manager');
+const htmlTemplate = require('./src/htmlTemplate');
 
 const teamList = []
 
@@ -47,9 +50,7 @@ function getAdditional(position) {
                 teamList.push(engineer);
                 getMember();
             })
-    }
-
-    else if (position === "Intern") {
+    } else if (position === "Intern") {
         position = "Intern"
         const intern = new Intern();
 
@@ -65,31 +66,29 @@ function getAdditional(position) {
                 teamList.push(intern);
                 getMember();
             })
-    } 
-
-    else if (position === "No further team members to add.") {
-        const htmlString = htmlTemplate.generateHTML(teamList);
-        writeToFile(htmlString);
-        console.log(teamList);
+    } else if (position === "No further team members to add.") {
+        writeToFile(htmlTemplate(teamList));
         return
     }
 }
 
 function getMember() {
-    const memberQuestion = [
-        {
+    const memberQuestion = [{
         type: 'list',
         message: 'Which additional team member do you wish to add?',
         name: 'position',
-        choices: ['Engineer','Intern',"No further team members to add."]
-        }
-    ]
+        choices: ['Engineer', 'Intern', "No further team members to add."]
+    }]
     inquirer
-    .prompt(memberQuestion)
-    .then((data) => {
-        getAdditional(data.position)
-        console.log(data.position);
-    })
+        .prompt(memberQuestion)
+        .then((data) => {
+            getAdditional(data.position)
+            console.log(data.position);
+        })
+}
+
+function writeToFile(data) {
+    fs.writeFile("./dist/index.html", data, (err) => err ? console.log(err) : console.log('Success!'));
 }
 
 getManager();
