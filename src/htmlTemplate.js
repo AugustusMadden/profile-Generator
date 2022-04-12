@@ -33,7 +33,7 @@ function generateManagerCard (data) {
     return `<div class="card-header bg-secondary md-3">${data.name}</div>
                 <div class="card-body">
                     <ul class="list-group ">
-                        <li class="list-group-item">Position: Manager</li>
+                        <li class="list-group-item">Position: Engineer</li>
                         <li class="list-group-item">ID: ${data.id}</li>
                         <li class="list-group-item">Email: ${data.email}</li>
                         <li class="list-group-item">GitHub account: https://github.com/${data.git}</li>
@@ -43,7 +43,7 @@ function generateManagerCard (data) {
         return `<div class="card-header bg-secondary md-3">${data.name}</div>
         <div class="card-body">
             <ul class="list-group ">
-                <li class="list-group-item">Position: Manager</li>
+                <li class="list-group-item">Position: Intern</li>
                 <li class="list-group-item">ID: ${data.id}</li>
                 <li class="list-group-item">Email: ${data.email}</li>
                 <li class="list-group-item">School: ${data.school}</li>
