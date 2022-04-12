@@ -14,10 +14,8 @@
 
 ## Usage
 
-Open the application in your preferred coding software, then bring up the code directory in your terminal. Type "node index" to launch the program, and fill out the generated questions. You'll be able to find the generated HTML file in your 'dist' folder.
-
-
-![Sheenshot of hero image and header](images/screenshot.PNG)
+Open the application in your preferred coding software, then bring up the code directory in your terminal. Type "node index" to launch the program, and fill out the generated questions. You'll be able to find the generated HTML file in your 'dist' folder. Click on the image below to view a video walkthrough of the process.
+  [![Demo](assets/screenshot.PNG)](https://drive.google.com/file/d/1EEa7eMXumce6jc3ZyyKkq6Ws5yes21XA/view)
 
 ## Credits
 
